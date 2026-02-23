@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniShare | Student Resource Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-area">
+            <i class="fas fa-university"></i>
+            <span>UniVault</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active"><i class="fas fa-home"></i> <span>Feed</span></li>
+            <li onclick="location.href='html/upload.html' "><i class="fas fa-cloud-upload-alt"></i> <span>Upload File</span></li>
+            <li><i class="fas fa-folder-open"></i> <span>My Files</span></li>
+            <li onclick="location.href='html/profile.html' "><i class="fas fa-user-circle"></i> <span>Profile</span></li>
+            <li onclick="location.href='html/register.html'">
+             <i class="fas fa-user-plus"></i> <span>Register</span>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-container">
+        <header class="header-tools">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by topic, professor, or book name...">
+            </div>
+            
+            <select class="filter-select" id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="journal">Journal</option>
+                <option value="notes">Notes</option>
+                <option value="book">Book</option>
+                <option value="assignment">Assignment</option>
+            </select>
+        </header>
+
+        <section class="content-area">
+            <h2 class="section-title">Explore Resources</h2>
+            <div class="file-grid" id="fileGrid">
+                </div>
+        </section>
+
+
+        <button class="load_more">more</button>
+
+        <footer>
+            <p>&copy; 2026 University Student Portal | Designed for Modern Learning</p>
+        </footer>
+    </main>
+
+    <script src="js/index.js">
+       
+    </script>
+</body>
+</html>
