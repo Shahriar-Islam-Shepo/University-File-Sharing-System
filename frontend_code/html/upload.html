@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UniVault - Secure File Upload</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .upload-container {
+        background: white;
+        width: 400px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #333;
+        text-align: center;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #555;
+        font-size: 0.9rem;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        margin-top: 5px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 1rem;
+      }
+
+      textarea {
+        resize: vertical;
+        height: 80px;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+      }
+
+      button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 14px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #responseMessage {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 0.95rem;
+        display: none; /* Hidden by default */
+      }
+
+      .loader {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #007bff;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="upload-container">
+      <h2>Upload Document</h2>
+      <form id="uploadForm">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Enter your username"
+          required
+        />
+
+        <label for="title">Document Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="e.g. Physics Report"
+          required
+        />
+
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          placeholder="Briefly describe the file..."
+        ></textarea>
+
+        <label for="categoryId">Category</label>
+        <select id="categoryId" name="categoryId">
+          <option value="1">Journal</option>
+          <option value="2">Notes</option>
+          <option value="3">Assignment</option>
+        </select>
+
+        <label for="file">Select File</label>
+        <input type="file" id="file" name="file" required />
+
+        <button type="submit" id="submitBtn">Upload to Server</button>
+      </form>
+
+      <div id="responseMessage"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const messageDiv = document.getElementById("responseMessage");
+          const submitBtn = document.getElementById("submitBtn");
+
+          // Show status
+          messageDiv.style.display = "block";
+          messageDiv.style.backgroundColor = "#e7f3ff";
+          messageDiv.style.color = "#004085";
+          messageDiv.innerHTML = '<div class="loader"></div> Uploading file...';
+          submitBtn.disabled = true;
+
+          // Create FormData from the form element
+          const formData = new FormData(this);
+
+          // Fetch call to your Spring Boot Controller
+          fetch("http://localhost:8080/api/auth/uploads", {
+            method: "POST",
+            body: formData,
+            // Note: Do NOT set Content-Type header; fetch does it automatically for FormData
+          })
+            .then(async (response) => {
+              const result = await response.text();
+
+              if (response.ok) {
+                messageDiv.style.backgroundColor = "#d4edda";
+                messageDiv.style.color = "#155724";
+                messageDiv.innerText = "✔ Success: " + result;
+                this.reset(); // Clear the form
+              } else {
+                throw new Error(result || "Server error occurred");
+              }
+            })
+            .catch((error) => {
+              console.error("Upload Error:", error);
+              messageDiv.style.backgroundColor = "#f8d7da";
+              messageDiv.style.color = "#721c24";
+              messageDiv.innerText = "✘ Error: " + error.message;
+            })
+            .finally(() => {
+              submitBtn.disabled = false;
+            });
+        });
+    </script>
+  </body>
+</html>
