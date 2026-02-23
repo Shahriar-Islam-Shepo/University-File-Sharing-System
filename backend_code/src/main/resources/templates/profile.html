@@ -1,0 +1,125 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>User Profile</title>-->
+<!--    <style>-->
+<!--        .profile-card { text-align: center; margin-top: 50px; font-family: Arial; }-->
+<!--        .pic { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #007bff; }-->
+<!--        .role { color: #555; font-style: italic; }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="profile-card">-->
+<!--    <img class="pic" th:src="${user.profilePicPath}" alt="User Image">-->
+
+<!--    <h1 th:text="'Welcome, ' + ${user.username}"></h1>-->
+<!--    <p class="role" th:text="'Role: ' + ${user.roleName}"></p>-->
+
+<!--    <br>-->
+<!--    <a href="#">Logout</a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        :root {
+            --primary-color: #4facfe;
+            --secondary-color: #00f2fe;
+            --text-main: #333;
+            --text-muted: #666;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            outline: 3px solid var(--primary-color);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0.5rem 0;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .role {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #ff4b2b;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff416c;
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+    <img class="pic"
+         th:src="@{'/' + ${user.profilePicPath}}"
+         alt="User Image">
+
+    <h1 th:text="'Welcome, ' + ${user.username}">Welcome, User</h1>
+
+    <p class="role" th:text="${user.roleName}">Administrator</p>
+
+    <hr style="border: 0; height: 1px; background: #eee; margin: 1.5rem 0;">
+
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+</body>
+</html>

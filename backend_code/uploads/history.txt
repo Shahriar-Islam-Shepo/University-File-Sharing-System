@@ -1,0 +1,23 @@
+i want to make a c2c website for mostly sell used product where people can create account and bye and sell their product for a university . In frontend html,css,javascript will be used only . No other framework be used . In backend java language and its framework springboot will be used and from store data file based system for image and MySQL database for text base information will be used .
+
+
+Frontend :
+
+Main page : Top of the page has a nav bar contain website logo(text based),home ,product categories, search option ,login/Register,sellers list ,Account (if any user has a account )
+
+logo: any name which is related with this service , and design it with html and css
+home : after click this page website back its main page 
+
+product categories : it will be a dropdown which contain many product categories ( contain common item list which university student can sell like food,cloth,book,electronics etc) . after click any categories it open a new for only this particular product and discuss of this page will be later .
+
+login/register :
+	register :
+used to create a account to use this website which is necessary to order a product
+. Contain Name(first name,Last name),university email(email must be @juniv.edu formate
+if not show message) department(dropdown) 
+, University ( by default Jahangirnagar University ),session(dropdown),upload image and 
+ and div which show which image is selected , register button. 
+after click this button it sent a post request to the server 
+
+
+
